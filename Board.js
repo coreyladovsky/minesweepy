@@ -1,7 +1,7 @@
 const Tile= require("./Tile");
 
 class Board {
-    constructor(height, width, bombCount) {
+    constructor({height, width, bombCount}) {
         this.height = height;
         this.width = width;
         this.bombCount = bombCount; 
@@ -56,27 +56,62 @@ class Board {
         })
         return count; 
     }
-
+    
     showTile(pos) {
         const [row, col] = pos; 
+        const neighbors = [ [-1, 0], [0, -1], [0, 1], [1, 0]];
+        if(this.grid[row] === undefined || this.grid[row][col] === undefined) return;
         let tile = this.grid[row][col];
         if(tile.isRevealed) return; 
         tile.revealTile();
+        if(tile.titleValue() === 0) {
+            neighbors.forEach(neighbor => {
+                let [addRow, addCol] = neighbor;
+                let newRow = row + addRow;
+                let newCol = col + addCol 
+                if(this.grid[newRow] && this.grid[newRow][newCol]) {
+                    if(!this.grid[newRow][newCol].isRevealed) {
+                        this.showTile([newRow, newCol])
+                    }
+                }
+            })
+        }
     }
 
-    displayBoard() {
-        return this.grid.map(row => {
-            return row.map(tile => {
-                // if(tile.isRevealed) {
-                //     return tile.value
-                // }
-                // return null;
-                return tile.value;
+    getTile(pos) {
+        const [row, col] = pos; 
+        return this.grid[row][col];
+    }
+
+    isGameOver() {
+        let notRevealed = 0; 
+        this.grid.forEach(row => {
+            row.forEach(tile => {
+                if(tile.isRevealed === false) {
+                    notRevealed++
+                }
             })
         })
+        return notRevealed === this.bombCount;
     }
-
+    
 }
 
-let board = new Board(8, 10, 10)
-console.log(board.displayBoard())
+module.exports = Board; 
+
+    // displayBoard() {
+    //     return this.grid.map(row => {
+    //         return row.map(tile => {
+    //             if(tile.isRevealed) {
+    //                 return tile.value
+    //             }
+    //             return ".";
+    //             // return tile.value;
+    //         })
+    //     })
+    // }
+
+// let board = new Board(8, 10, 10)
+// console.log(board.displayBoard())
+// board.showTile([0, 0])
+// console.log(board.displayBoard())

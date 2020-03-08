@@ -5,6 +5,10 @@ class Tile {
         this.isFlagged = false;
     }
 
+    tileValue() {
+        return this.value;
+    }
+
     revealTile() {
         this.isRevealed = true; 
     }
