@@ -1,10 +1,17 @@
 class Tile {
-    constructor(sym) {
-        this.sym = sym;
-        this.hidden =  true; 
+    constructor(value) {
+        this.value = value;
+        this.isRevealed =  false; 
+        this.isFlagged = false;
     }
 
-    showTile() {
-        this.hidden = false; 
+    revealTile() {
+        this.isRevealed = true; 
+    }
+
+    toggleFlag() {
+        this.isFlagged = !this.isFlagged;
     }
 }
+
+module.exports = Tile;
