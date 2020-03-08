@@ -1,12 +1,13 @@
+import { Board } from './Board';
+
 const DIFFICULTY = {
     easy: {height: 8, width: 10, bombCount: 10},
     medium: {height: 14, width: 18, bombCount: 40},
     hard: {height: 20, width: 24, bombCount: 100},
 }
 
-import { Board } from './Board';
 
-export class Game {
+export default class GamePlay {
     constructor(level) {
         this.isAlive = true; 
         this.difficulty = DIFFICULTY[level];

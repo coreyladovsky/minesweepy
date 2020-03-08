@@ -1,9 +1,10 @@
 import React from 'react';
-import Clock from './components/Clock';
-function App() {
+import Game from './components/Game';
+const App = () => {
   return (
     <div className="App">
-      <Clock/>
+      <Game/>
+      
     </div>
   );
 }

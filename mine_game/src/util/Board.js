@@ -83,6 +83,7 @@ export class Board {
     }
 
     toggleFlag(pos) {
+        const [row, col] = pos;
         this.grid[row][col].toggleFlag();
     }
 
