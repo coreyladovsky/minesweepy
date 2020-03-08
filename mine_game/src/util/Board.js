@@ -1,6 +1,5 @@
-const Tile= require("./Tile");
-
-class Board {
+import { Tile } from './Tile';
+export class Board {
     constructor({height, width, bombCount}) {
         this.height = height;
         this.width = width;
@@ -83,6 +82,10 @@ class Board {
         return this.grid[row][col];
     }
 
+    toggleFlag(pos) {
+        this.grid[row][col].toggleFlag();
+    }
+
     isGameOver() {
         let notRevealed = 0; 
         this.grid.forEach(row => {
@@ -97,21 +100,3 @@ class Board {
     
 }
 
-module.exports = Board; 
-
-    // displayBoard() {
-    //     return this.grid.map(row => {
-    //         return row.map(tile => {
-    //             if(tile.isRevealed) {
-    //                 return tile.value
-    //             }
-    //             return ".";
-    //             // return tile.value;
-    //         })
-    //     })
-    // }
-
-// let board = new Board(8, 10, 10)
-// console.log(board.displayBoard())
-// board.showTile([0, 0])
-// console.log(board.displayBoard())

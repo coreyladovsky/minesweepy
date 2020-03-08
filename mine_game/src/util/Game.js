@@ -4,9 +4,9 @@ const DIFFICULTY = {
     hard: {height: 20, width: 24, bombCount: 100},
 }
 
-const Board = require("./Board");
+import { Board } from './Board';
 
-class Game {
+export class Game {
     constructor(level) {
         this.isAlive = true; 
         this.difficulty = DIFFICULTY[level];
@@ -19,6 +19,11 @@ class Game {
         if(this.board.get(pos).tileValue() === "b") {
             this.isAlive = false; 
         }
+    }
+
+    toggleFlag(pos) {
+         if(!this.isAlive) return;
+         this.board.toggleFlag(pos);
     }
 
     isWon() {

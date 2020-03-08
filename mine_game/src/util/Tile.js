@@ -1,4 +1,4 @@
-class Tile {
+export class Tile {
     constructor(value) {
         this.value = value;
         this.isRevealed =  false; 
@@ -18,4 +18,3 @@ class Tile {
     }
 }
 
-module.exports = Tile;
