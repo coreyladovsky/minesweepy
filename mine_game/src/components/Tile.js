@@ -1,24 +1,29 @@
 import React, { useState } from 'react';
 import '../css/Tile.css';
-const Tile = ({value}) => {
-    const [isRevealed, setIsRevealed] = useState(false);
-    const [isFlagged, setIsFlagged] = useState(false);
-    const revealTile = () => setIsRevealed(true); 
+const Tile = ({pos, showTile, tile}) => {
+    const [isRevealed, setIsRevealed] = useState(tile.isRevealed);
+    const [isFlagged, setIsFlagged] = useState(tile.isRevealed);
+    const revealTile = () => {
+        tile.revealTile();
+        setIsRevealed(true); 
+    }
     const toggleFlag = (e) =>  {
         e.preventDefault();
+        tile.toggleFlag()
         setIsFlagged(prevFlag => !prevFlag)
     }
 
-    // tileValue() {
-    //     return this.value;
-    // }
+    const showSelf = () => {
+        showTile(pos)
+    }
+ 
     if(isRevealed) {
-        return <div className={"tile revealed " + value}>{value ? value : null }</div>
+        return <div className={"tile revealed " + tile.value}>{tile.value ? tile.value : null }</div>
     }
     if(isFlagged) {
         return <div className={"tile"} onContextMenu={toggleFlag}>🚩</div>
     }
-    return <div className={"tile"} onContextMenu={toggleFlag}></div>
+    return <div className={"tile"} onContextMenu={toggleFlag} onClick={showSelf}></div>
 
 }
 

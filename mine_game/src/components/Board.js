@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import TileClass  from '../util/Tile';
 import Tile from './Tile';
 import "../css/Board.css";
 const DIFFICULTY = {
@@ -18,7 +19,7 @@ const Board = ({ difficulty }) => {
         let output =  new Array(height).fill(null).map(el => new Array(width).fill(null))    
         output = fillWithBombs(output);
         output = calculateValues(output);
-        return output;
+        return output.map(row => row.map(tile => new TileClass(tile)))
     }
 
     const fillWithBombs = (grid) => {
@@ -59,24 +60,26 @@ const Board = ({ difficulty }) => {
     }
     
     const showTile = (pos) => {
+        let board = grid.map(row => row.slice(0)).slice(0)
         const [row, col] = pos; 
         const neighbors = [ [-1, 0], [0, -1], [0, 1], [1, 0]];
-        if(grid[row] === undefined || grid[row][col] === undefined) return;
-        const tile = grid[row][col];
-        if(tile.isRevealed) return; 
+        if(board[row] === undefined || board[row][col] === undefined) return;
+        const tile = board[row][col];
+        if(tile.isRevealed || tile.isFlagged) return; 
         tile.revealTile();
-        if(tile.titleValue() === 0) {
+        if(tile.tileValue() === 0) {
             neighbors.forEach(neighbor => {
                 let [addRow, addCol] = neighbor;
                 let newRow = row + addRow;
                 let newCol = col + addCol 
-                if(grid[newRow] && grid[newRow][newCol]) {
-                    if(!grid[newRow][newCol].isRevealed) {
+                if(board[newRow] && board[newRow][newCol]) {
+                    if(!board[newRow][newCol].isRevealed) {
                         showTile([newRow, newCol])
                     }
                 }
             })
         }
+        setGrid(board)
     }
 
     // getTile(pos) {
@@ -110,7 +113,7 @@ const Board = ({ difficulty }) => {
     const displayGrid = grid.map((row, i) => {
         return (
             <ul className={"gridRow"} key={i}>
-                {row.map((tile, j) => <Tile  key={`${i}${j}`} value={tile}/>)}
+                {row.map((tile, j) => <Tile  key={`${i}${j}`} tile={tile} pos={[i, j]} showTile={showTile}/>) }
                 
             </ul>
         )
