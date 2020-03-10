@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
-import GamePlay from '../util/Game';
+// import GamePlay from '../util/Game';
 import Clock from './Clock';
 import Board from './Board';
 const Game = () => {
     const [ difficulty, setDifficulty ] = useState("easy")
     const [countDown, setCountDown] = useState(false);
-    const [game, setGame] = useState(new GamePlay(difficulty))
+   
     const handleChange = e => {
         setDifficulty(e.target.value)
-        setGame(e.target.value)
     };
     
     return(
@@ -21,7 +20,7 @@ const Game = () => {
         
             <Clock countDown={countDown}/>
 
-            <Board board={game.board}/>
+            <Board difficulty={difficulty}/>
         </div>
     )
 }
