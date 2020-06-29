@@ -9,12 +9,8 @@ const DIFFICULTY = {
 }
 
 const Board = ({ difficulty }) => {
-    // const [height, setHeight] = useState(null)
-    // const [width, setWidth] = useState(null)
-    // const [bombCount, setBombCount] = useState(null)
     const { height, width, bombCount} = DIFFICULTY[difficulty];
 
-   
     const constructGrid = () => {
         let output =  new Array(height).fill(null).map(el => new Array(width).fill(null))    
         output = fillWithBombs(output);

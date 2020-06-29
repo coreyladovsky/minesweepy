@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../css/Tile.css';
 const Tile = ({pos, showTile, tile}) => {
     const [isRevealed, setIsRevealed] = useState(tile.isRevealed);
     const [isFlagged, setIsFlagged] = useState(tile.isRevealed);
+
+    useEffect(() => {
+        setIsRevealed(tile.isRevealed)
+    }, [tile.isRevealed])
     const revealTile = () => {
         tile.revealTile();
         setIsRevealed(true); 

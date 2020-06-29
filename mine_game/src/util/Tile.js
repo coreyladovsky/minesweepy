@@ -1,4 +1,4 @@
-export default class TileClas {
+export default class TileClass {
     constructor(value) {
         this.value = value;
         this.isRevealed =  false; 
