@@ -8,7 +8,7 @@ const DIFFICULTY = {
     hard: {height: 20, width: 24, bombCount: 100},
 }
 
-const Board = ({ difficulty }) => {
+const Board = ({ difficulty, endGame, setStartGame, inSession, shuffleBoard, setShuffleBoard }) => {
     const { height, width, bombCount} = DIFFICULTY[difficulty];
 
     const constructGrid = () => {
@@ -74,19 +74,11 @@ const Board = ({ difficulty }) => {
                     }
                 }
             })
+        } else if(tile.tileValue() === "b") {
+            endGame();
         }
         setGrid(board)
     }
-
-    // getTile(pos) {
-    //     const [row, col] = pos; 
-    //     return this.grid[row][col];
-    // }
-
-    // toggleFlag(pos) {
-    //     const [row, col] = pos;
-    //     this.grid[row][col].toggleFlag();
-    // }
 
     const isGameOver = () => {
         let notRevealed = 0; 
@@ -104,7 +96,7 @@ const Board = ({ difficulty }) => {
 
     useEffect(() => {
        setGrid(constructGrid()) 
-    }, [difficulty]) 
+    }, [difficulty, shuffleBoard]) 
 
     const displayGrid = grid.map((row, i) => {
         return (
@@ -114,11 +106,19 @@ const Board = ({ difficulty }) => {
             </ul>
         )
     })    
-    return(
-        <div>
-            {displayGrid}
-        </div>
-    )
+    if(!inSession) {
+        return(
+            <div onClick={setStartGame}>
+                {displayGrid}
+            </div>
+        )
+    } else {
+        return (
+            <div>
+                {displayGrid}
+            </div>
+        )
+    }
 }
 
 export default Board;

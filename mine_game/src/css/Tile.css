@@ -3,26 +3,34 @@
     height: 30px;
     background: gray;
     border: 1px solid black;
+       display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .revealed {
     background-color: lightgray;
 }
 
-.1 {
+.num1 {
     color: blue; 
 }
-.2 {
+.num2 {
     color: green; 
 }
-.3 {
+.num3 {
     color: red; 
 }
 
-.4 {
+.num4 {
     color: purple;
 }
 
-.5, .6, .7, .8 {
+.num5, .num6, .num7, .num8 {
     color: black;
+}
+
+.bomb {
+    background: red;
+ 
 }

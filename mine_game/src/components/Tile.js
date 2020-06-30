@@ -22,7 +22,11 @@ const Tile = ({pos, showTile, tile}) => {
     }
  
     if(isRevealed) {
-        return <div className={"tile revealed " + tile.value}>{tile.value ? tile.value : null }</div>
+        if(tile.value === "b") {
+            return <div className={"tile revealed bomb"}>💣</div>
+        } else {
+            return <div className={"tile revealed " + "num" + tile.value}>{tile.value ? tile.value : null }</div>
+        }
     }
     if(isFlagged) {
         return <div className={"tile"} onContextMenu={toggleFlag}>🚩</div>
